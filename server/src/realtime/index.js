@@ -12,13 +12,8 @@ const emitToBoard = (boardId, event, payload) => {
   if (io) io.to(boardRoom(boardId)).emit(event, payload);
 };
 
-const logActivity = async (
-  boardId,
-  userId,
-  action,
-  message,
-  metadata
-) => {
+
+const logActivity = async ({ boardId, userId, action, message, metadata }) => {
   const { rows } = await query(
     `
       INSERT INTO activities (board_id, user_id, action, message, metadata)
@@ -40,7 +35,6 @@ const logActivity = async (
 
   return activity;
 };
-
 module.exports = {
   setIo,
   emitToBoard,

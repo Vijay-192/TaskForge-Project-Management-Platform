@@ -16,7 +16,6 @@ const fetchTask = async (taskId) => {
      WHERE t.id = $1`,
     [taskId]
   );
-
   return rows[0];
 };
 
@@ -25,11 +24,9 @@ const ensureColumnInBoard = async (columnId, boardId) => {
     "SELECT id FROM columns WHERE id = $1 AND board_id = $2",
     [columnId, boardId]
   );
-
   if (!rows.length)
     throw ApiError.badRequest("Column does not belong to this board");
 };
-
 
 const listTasks = asyncHandler(async (req, res) => {
   const filters = ["t.board_id = $1"];
@@ -72,7 +69,6 @@ const listTasks = asyncHandler(async (req, res) => {
   res.json({ tasks: rows });
 });
 
-
 const createTask = asyncHandler(async (req, res) => {
   const {
     column_id,
@@ -81,7 +77,7 @@ const createTask = asyncHandler(async (req, res) => {
     due_date,
     assignee_id,
   } = req.body;
-
+  
   const title = (rawTitle || "").trim();
 
   const priority = PRIORITIES.includes(req.body.priority)
@@ -236,6 +232,7 @@ const moveTask = asyncHandler(async (req, res) => {
 
   res.json({ task });
 });
+
 const deleteTask = asyncHandler(async (req, res) => {
   const { rows } = await query(
     "DELETE FROM tasks WHERE id = $1 AND board_id = $2 RETURNING title",

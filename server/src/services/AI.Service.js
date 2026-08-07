@@ -22,7 +22,6 @@ const getClient = () => {
 const extractJson = (text) => {
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
   const candidate = fenced ? fenced[1] : text;
-
   const start = candidate.search(/[[{]/);
 
   if (start === -1) {
@@ -33,7 +32,7 @@ const extractJson = (text) => {
     candidate.lastIndexOf("]"),
     candidate.lastIndexOf("}")
   );
-
+  
   try {
     return JSON.parse(candidate.slice(start, end + 1));
   } catch {
@@ -151,10 +150,8 @@ const summarizeBoard = async (boardTitle, columns) => {
 
   const prompt = `
 You are a scrum master. Write a concise sprint summary for the Kanban board "${boardTitle}".
-
 Current board state:
 ${snapshot}
-
 Respond ONLY with JSON:
 {
   "headline": string,
