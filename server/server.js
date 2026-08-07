@@ -4,7 +4,7 @@ const http = require("http");
 const express = require("express");
 const cors = require("cors");
 
-const apiRoutes = require("./src/routes");
+const apiRoutes = require("./src/routes.js");
 const {
   errorHandler,
   notFoundHandler,
