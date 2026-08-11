@@ -4,7 +4,7 @@ const http = require("http");
 const express = require("express");
 const cors = require("cors");
 
-const apiRoutes = require("./src/routes.js");
+const apiRoutes = require("./src/routes/index.js");
 const {
   errorHandler,
   notFoundHandler,
@@ -16,7 +16,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: process.env.CLIENT_URL || process.env.CLIENT_DEV_URL,
     credentials: true,
   })
 );
@@ -40,7 +40,7 @@ initSocket(httpServer);
 const PORT = process.env.PORT || 5050;
 
 app.listen(PORT, () => {
-  console.log(`🚀 API + Socket.IO listening on http://localhost:${PORT}`);
+  console.log(`🚀 TASKFORGE API + Socket.IO server running on http://localhost:${PORT}`);
 });
 
 module.exports = app;

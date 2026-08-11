@@ -1,6 +1,6 @@
 const { Server } = require("socket.io");
 const { verifyToken } = require("../utils/jwt.js");
-const query = require("../config/db.js");
+const { query } = require("../config/db.js");
 const { setIo, boardRoom } = require("../realtime/index.js");
 
 const userCanAccessBoard = async (userId, boardId) => {
@@ -17,7 +17,7 @@ const userCanAccessBoard = async (userId, boardId) => {
 const initSocket = (httpServer) => {
   const io = new Server(httpServer, {
     cors: {
-      origin: process.env.CLIENT_URL || "http://localhost:5173",
+      origin: process.env.CLIENT_URL || process.env.CLIENT_DEV_URL,
       methods: ["GET", "POST"],
       credentials: true,
     },
